@@ -1,89 +1,60 @@
-# Youtube Caption Summaries
+# YouTube Caption Summaries
 
-Sure, here is a suggested file structure and a basic README for the project. 
+This Python tool retrieves the captions from a YouTube video, and then uses the OpenAI Chat API to summarize them.
 
-### File Structure
-```
-root/
-│
-├── src/
-│   ├── config.py
-│   ├── youtube_api.py
-│   ├── openai_api.py
-│   ├── summarizer.py
-│   ├── utils.py
-│   ├── main.py
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_youtube_api.py
-│   ├── test_openai_api.py
-│   ├── test_summarizer.py
-│
-├── .gitignore
-├── README.md
-└── requirements.txt
-```
-### Description of Files
-- `src/config.py`: Contains configuration variables such as API keys.
-- `src/youtube_api.py`: Contains code for interacting with the YouTube API.
-- `src/openai_api.py`: Contains code for interacting with the OpenAI API.
-- `src/summarizer.py`: Contains code for summarizing the transcript.
-- `src/utils.py`: Contains utility functions used across the project.
-- `src/main.py`: Contains the main driver function for running the tool.
-- `tests/`: Contains test scripts for the different components.
-- `.gitignore`: Specifies files and directories for Git to ignore.
-- `README.md`: Provides an overview of the project and instructions for use.
-- `requirements.txt`: Lists all Python dependencies required for this project.
+## Prerequisites
 
-### README
+- Python 3.8+
+- An API key for the OpenAI Chat API
+- A `config.yaml` file with your OpenAI Chat API key in the following format:
 
-```markdown
-# YouTube Video Transcript Summarizer
-
-This tool allows you to automatically summarize the transcript of a YouTube video using the YouTube API and OpenAI's Chat API. Given a URL of a YouTube video, the tool will extract the captions, and then use the OpenAI API to create a summary of the transcript.
-
-## Getting Started
-
-### Prerequisites
-
-- Python 3.8 or later
-- Access to the YouTube Data API and OpenAI API
-- A `config.py` file in the `src` directory with your API keys:
-
-```python
-YOUTUBE_API_KEY = 'your-youtube-api-key'
-OPENAI_API_KEY = 'your-openai-api-key'
+```yaml
+openai:
+  key: "your_openai_key"
 ```
 
-### Installation
+## Installation
 
-1. Clone the repository to your local machine:
+1. Clone this repository and navigate into it:
 
 ```bash
-git clone https://github.com/yourusername/YouTube-Video-Transcript-Summarizer.git
+git clone https://github.com/your_username/yt-caption-summaries.git
+cd yt-caption-summaries
 ```
 
-2. Install the required Python dependencies:
+2. Create a virtual environment and activate it:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows, use `.venv\Scripts\activate`
+```
+
+3. Install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Usage
+## Usage
 
-To use the tool, run the `main.py` script with the URL of the YouTube video as an argument:
+You can run the script with a YouTube video URL as follows:
 
 ```bash
-python main.py --url 'https://www.youtube.com/watch?v=xxxxxxxxxxx'
+python -m src.main "https://www.youtube.com/watch?v=jNQXAC9IVRw"
 ```
 
-The script will output the summary of the video transcript.
+The summary of the video's captions will be saved in a `.txt` file in the `summaries` folder.
 
-### Contributing
+The tool tries to fetch English captions by default. If you want to specify another language for the original captions, you can do so with the `--lang` flag. For example, to fetch Swedish captions and then translate them into English:
 
-Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests.
+```bash
+python -m src.main "https://www.youtube.com/watch?v=AP-ocdDPRlk" --lang "sv"
+```
 
-### License
+## Contributing
 
-This project is licensed under the MIT License - see the `LICENSE.md` file for details.
+Please feel free to fork this repository and submit pull requests. To install development dependencies, run `pip install -r requirements_dev.txt`.
+
+## License
+
+This project is licensed under the terms of the MIT license.

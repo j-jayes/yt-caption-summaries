@@ -1,27 +1,21 @@
 from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound
-from .config import config
-
-YOUTUBE_API_KEY = config["youtube"]["key"]
 
 def get_video_id(url):
     return url.split('v=')[-1]
 
-def get_transcript(video_id):
+def get_transcript(video_id, original_language='en'):
     try:
-        # Try to get the transcript in any available language
+        # Get the list of all transcripts for the video
         transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-        transcript = None
 
-        # Try to fetch the English transcript (auto-generated or not)
-        try:
-            transcript = transcript_list.find_transcript(['en'])
-        except NoTranscriptFound:
-            pass
+        # Fetch the transcript in the original language
+        transcript = transcript_list.find_transcript([original_language])
 
-        # If English transcript is not found, fetch the first available transcript
-        if not transcript:
-            transcript = transcript_list.find_transcript(transcript_list.get_language_list())
-        
+        # If the original language is not English, translate the transcript
+        if original_language != 'en':
+            transcript = transcript.translate('en')
+
+        # Combine all segments into a single string
         return " ".join([seg['text'] for seg in transcript.fetch()])
     
     except Exception as e:

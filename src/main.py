@@ -1,20 +1,24 @@
-import os
 import argparse
-from .summarizer import summarize_video
+from src.summarizer import summarize_video
+import os
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--url', required=True, help='The URL of the YouTube video to summarize')
+    parser = argparse.ArgumentParser(description="Summarize a YouTube video")
+    parser.add_argument("url", help="The URL of the YouTube video")
+    parser.add_argument("--lang", default='en', help="Original language of the video (defaults to English)")
     args = parser.parse_args()
 
-    summary = summarize_video(args.url)
+    summary = summarize_video(args.url, args.lang)
+    
+    if summary:
+        if not os.path.exists("summaries"):
+            os.makedirs("summaries")
 
-    if not os.path.exists('summaries'):
-        os.makedirs('summaries')
+        with open(f'summaries/{args.url.split("v=")[-1]}.txt', 'w', encoding='utf-8') as f:
+            f.write(summary)
+        print(f"Summary saved to summaries/{args.url.split('v=')[-1]}.txt")
+    else:
+        print("Couldn't generate a summary for this video.")
 
-    video_id = args.url.split('v=')[-1]
-    with open(f'summaries/{video_id}.txt', 'w') as f:
-        f.write(summary)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

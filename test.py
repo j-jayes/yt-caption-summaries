@@ -7,10 +7,15 @@ url = 'https://www.youtube.com/watch?v=AP-ocdDPRlk'
 # Test getting the video ID from the URL
 video_id = get_video_id(url)
 print(video_id)  # should output 'jNQXAC9IVRw'
+orig_lang = 'sv'
 
 # Test getting the transcript
-transcript = get_transcript(video_id)
-print(transcript[:500])  # print the first 500 characters of the transcript
+transcript = get_transcript(video_id, 'sv')
+if transcript is not None:
+    print(transcript[:500])  # print the first 500 characters of the transcript
+else:
+    print("Transcript not available.")
+
 
 # Test summarizing a part of the transcript
 summary_part = summarize_text(transcript[:500])
