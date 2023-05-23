@@ -1,0 +1,7 @@
+google-api-python-client
+openai
+youtube_transcript_api
+pyyaml
+google-auth
+google-api-python-client
+pyyaml
