@@ -18,7 +18,7 @@ openai:
 1. Clone this repository and navigate into it:
 
 ```bash
-git clone https://github.com/your_username/yt-caption-summaries.git
+git clone https://github.com/j-jayes/yt-caption-summaries.git
 cd yt-caption-summaries
 ```
 
