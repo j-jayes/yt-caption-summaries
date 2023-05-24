@@ -51,6 +51,17 @@ The tool tries to fetch English captions by default. If you want to specify anot
 python -m src.main "https://www.youtube.com/watch?v=AP-ocdDPRlk" --lang "sv"
 ```
 
+## Flow chart
+
+```mermaid
+
+graph TB
+  A[Input YouTube URL] --> B[YouTube Data API: Get Transcript]
+  B --> C[OpenAI API: Summarize Transcript]
+  C --> D[Save Summary to Text File]
+```
+
+
 ## Contributing
 
 Please feel free to fork this repository and submit pull requests. To install development dependencies, run `pip install -r requirements_dev.txt`.
